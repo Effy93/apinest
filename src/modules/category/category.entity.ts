@@ -1,14 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, CreateDateColumn } from 'typeorm';
+import { Ad } from '../ads/ads.entity';
 
 @Entity('category')
 export class Category {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id!: number;
 
-  @Column()
+  @Column("varchar", {length: 50})
   name!: string;
 
-  @Column()
+ @CreateDateColumn()
   createdAt!: Date;
 
+  @ManyToOne(() => Ad, (ad) => ad.category)
+  ads!: Ad[];
 }

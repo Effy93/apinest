@@ -1,23 +1,43 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  CreateDateColumn,
+} from 'typeorm';
 import { Ad } from '../ads/ads.entity';
+
+export enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+}
 
 @Entity('user')
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id!: number;
 
-  @Column()
+  @Column('varchar', { length: 50 })
   name!: string;
 
-  @Column()
+  @Column('varchar', { length: 100 })
   email!: string;
 
-  @Column()
+  @Column('varchar', { length: 255 })
   password!: string;
 
-  @Column()
+  @CreateDateColumn()
   createdAt!: Date;
 
-  @OneToMany(() => Ad, (ad) => ad.user)
+  @Column({
+    type: 'set',
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  role!: UserRole;
+
+  @OneToMany(() => Ad, (ad) => ad.user, {
+    cascade: ['remove'],
+  })
   ads!: Ad[];
 }
