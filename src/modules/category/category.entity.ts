@@ -10,14 +10,14 @@ import { Ad } from '../ads/ads.entity';
 @Entity('category')
 export class Category {
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id: number;
 
   @Column('varchar', { length: 50 })
-  name!: string;
+  name: string;
 
   @CreateDateColumn()
-  createdAt!: Date;
+  createdAt: Date;
 
   @ManyToOne(() => Ad, (ad) => ad.category)
-  ads!: Ad[];
+  ads: Ad[];
 }

@@ -14,7 +14,7 @@ export class CategoryService {
     if (!category) throw new NotFoundException(`Category #${id} introuvable`);
     return category;
   }
-   async findAll() {
+  async findAll() {
     return this.categoryRepo.find();
   }
 
