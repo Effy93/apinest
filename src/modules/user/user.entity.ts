@@ -14,17 +14,24 @@ export enum UserRole {
 
 @Entity('user')
 export class User {
+  constructor(name: string, email: string, password: string, role: UserRole) {
+    this.name = name,
+      this.email = email,
+      this.password = password,
+      this.role = role
+  }
+
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
   @Column('varchar', { length: 50 })
-  name!: string;
+  name: string;
 
   @Column('varchar', { length: 100 })
-  email!: string;
+  email: string;
 
   @Column('varchar', { length: 255 })
-  password!: string;
+  password: string;
 
   @CreateDateColumn()
   createdAt!: Date;
@@ -34,7 +41,7 @@ export class User {
     enum: UserRole,
     default: UserRole.USER,
   })
-  role!: UserRole;
+  role: UserRole;
 
   @OneToMany(() => Ad, (ad) => ad.user, {
     cascade: ['remove'],
