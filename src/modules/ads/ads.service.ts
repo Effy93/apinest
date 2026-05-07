@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Ad } from './ads.entity';
 import { Repository } from 'typeorm';
+import { CreateAdDto } from './dto/create-ad.dto';
+import { UpdateAdDto } from './dto/update-ad.dto';
 
 @Injectable()
 export class AdService {
@@ -16,15 +18,15 @@ export class AdService {
     return ad;
   }
 
-  async create(adData: any) {
-    const newAd = this.adsRepo.create(adData);
+  async create(createAdDto: CreateAdDto) {
+    const newAd = this.adsRepo.create(createAdDto);
     return this.adsRepo.save(newAd);
   }
 
-  async update(id: number, body: any) {
+  async update(id: number, updateAdDto: UpdateAdDto) {
     await this.adsRepo.findOneBy({ id });
-    await this.adsRepo.update(id, body);
-    await this.adsRepo.save(body);
+    await this.adsRepo.update(id, updateAdDto);
+    await this.adsRepo.save(updateAdDto);
   }
 
   async remove(id: number) {
