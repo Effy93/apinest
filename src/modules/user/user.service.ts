@@ -12,7 +12,7 @@ export class UserService {
   ) {}
 
   async findOne(id: string) {
-    const user = await this.usersRepo.findOneBy({id});
+    const user = await this.usersRepo.findOneBy({id: id});
     if (!user) throw new NotFoundException(`User #${id} introuvable`);
     return user;
   }
@@ -23,13 +23,13 @@ export class UserService {
   }
 
   async update(id: string, dto: Partial<User>) {
-    await this.usersRepo.findOneBy({ id });
+    await this.usersRepo.findOneBy({ id: id });
     await this.usersRepo.update(id, dto);
     await this.usersRepo.save(dto);
   }
 
   async remove(id: string) {
-    await this.usersRepo.findOneBy({ id });
+    await this.usersRepo.findOneBy({ id: id });
     await this.usersRepo.delete(id);
     return { message: `User #${id} supprimé` };
   }

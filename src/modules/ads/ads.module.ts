@@ -10,4 +10,4 @@ import { AdService } from './ads.service';
   providers: [AdService],
   exports: [AdService],
 })
-export class UserModule {}
+export class AdModule {}

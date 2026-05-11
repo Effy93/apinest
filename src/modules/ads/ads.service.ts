@@ -12,8 +12,8 @@ export class AdService {
     private readonly adsRepo: Repository<Ad>,
   ) {}
 
-  async findOne(id: number) {
-    const ad = await this.adsRepo.findOneBy({ id });
+  async findOne(id: string) {
+    const ad = await this.adsRepo.findOneBy({ id: id });
     if (!ad) throw new NotFoundException(`Ad #${id}`);
     return ad;
   }
@@ -23,14 +23,14 @@ export class AdService {
     return this.adsRepo.save(newAd);
   }
 
-  async update(id: number, updateAdDto: UpdateAdDto) {
-    await this.adsRepo.findOneBy({ id });
+  async update(id: string, updateAdDto: UpdateAdDto) {
+    await this.adsRepo.findOneBy({ id: id });
     await this.adsRepo.update(id, updateAdDto);
     await this.adsRepo.save(updateAdDto);
   }
 
-  async remove(id: number) {
-    await this.adsRepo.findOneBy({ id });
+  async remove(id: string) {
+    await this.adsRepo.findOneBy({ id: id });
     await this.adsRepo.delete.apply(id);
     return { message: `Annonce #${id} supprimée!` };
   }

@@ -15,10 +15,10 @@ export enum UserRole {
 @Entity('user')
 export class User {
   constructor(name: string, email: string, password: string, role: UserRole) {
-    this.name = name,
-      this.email = email,
-      this.password = password,
-      this.role = role
+    this.name = name;
+      this.email = email;
+      this.password = password;
+      this.role = role;
   }
 
   @PrimaryGeneratedColumn('uuid')

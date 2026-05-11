@@ -9,8 +9,8 @@ export class CategoryService {
     private readonly categoryRepo: Repository<Category>,
   ) {}
 
-  async findOne(id: number) {
-    const category = await this.categoryRepo.findOneBy({ id });
+  async findOne(id: string) {
+    const category = await this.categoryRepo.findOneBy({ id: id });
     if (!category) throw new NotFoundException(`Category #${id} introuvable`);
     return category;
   }
@@ -23,13 +23,13 @@ export class CategoryService {
     return this.categoryRepo.save(newCategory);
   }
 
-  async update(id: number, body: any) {
+  async update(id: string, body: any) {
     const category = await this.findOne(id);
     Object.assign(category, body);
     return this.categoryRepo.save(category);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     await this.findOne(id);
     await this.categoryRepo.delete(id);
     return { message: `Category #${id} supprimée` };

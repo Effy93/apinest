@@ -4,20 +4,26 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { Ad } from '../ads/ads.entity';
 
 @Entity('category')
 export class Category {
+
+constructor(name: string,){
+  this.name= name;
+}
+
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id!: string;
 
   @Column('varchar', { length: 50 })
   name: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
-  @ManyToOne(() => Ad, (ad) => ad.category)
-  ads: Ad[];
+  @OneToMany(() => Ad, (ad) => ad.categories)
+  ad!: Ad;
 }
