@@ -11,17 +11,23 @@ import { Category } from '../category/category.entity';
 
 @Entity('ad')
 export class Ad {
+  constructor(title: string, content: string, price: number) {
+    this.title = title;
+    this.content = content;
+    this.price = price;
+  }
+
   @PrimaryGeneratedColumn('uuid')
-  id!: number;
+  id!: string;
 
   @Column('varchar', { length: 100 })
-  title!: string;
+  title: string;
 
   @Column('varchar', { length: 200 })
-  content!: string;
+  content: string;
 
   @Column('decimal', { precision: 8, scale: 2 })
-  price!: number;
+  price: number;
 
   @CreateDateColumn()
   createdAt!: Date;
@@ -31,6 +37,6 @@ export class Ad {
   })
   user!: User;
 
-  @OneToMany(() => Category, (category) => category.ads)
-  category!: Category;
+  @ManyToOne(() => Category, (category) => category.ad)
+  categories!: Category[];
 }
