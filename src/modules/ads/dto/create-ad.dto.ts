@@ -13,16 +13,16 @@ constructor(title: string, content: string, price: number, user: User) {
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
-  title!: string;
+  title: string;
 
   @IsString()
   @IsNotEmpty()
   @MaxLength(200)
-  content!: string;
+  content: string;
 
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsNotEmpty()
-  price!: number;
+  price: number;
   
   @IsString()
   @IsNotEmpty()
